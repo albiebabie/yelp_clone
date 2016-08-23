@@ -14,7 +14,7 @@ feature 'restaurants' do
       Restaurant.create(name: 'KFC', description: "Chicken")
     end
 
-    scenario 'display restaurants' do
+    scenario 'displays restaurants' do
       visit '/restaurants'
       expect(page).to have_content('KFC')
       expect(page).not_to have_content('No restaurants yet')
@@ -30,6 +30,17 @@ feature 'restaurants' do
       click_button "Create Restaurant"
       expect(page).to have_content "KFC"
       expect(current_path).to eq '/restaurants'
+    end
+
+    context 'an invalid restaurant' do
+      it "does not let you submit a name that is too short" do
+        visit '/restaurants'
+        click_link 'Add a restaurant'
+        fill_in 'Name', with: 'kf'
+        click_button 'Create Restaurant'
+        expect(page).not_to have_css 'h2', text: 'kf'
+        expect(page).to have_content 'error'
+      end
     end
   end
 
@@ -47,7 +58,7 @@ feature 'restaurants' do
   context 'editing restaurants' do
     before { Restaurant.create name: 'KFC', description: 'Deep fried goodness' }
 
-    scenario 'let a user edit a restaurant' do
+    scenario 'lets a user edit a restaurant' do
       visit '/restaurants'
       click_link 'Edit KFC'
       fill_in 'Name', with: 'Kentucky Fried Chicken'
