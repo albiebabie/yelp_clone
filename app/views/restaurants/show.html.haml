@@ -1,2 +1,4 @@
 %p= @restaurant.name
 %p= @restaurant.description
+= link_to "Edit #{@restaurant.name}", edit_restaurant_path(@restaurant)
+= link_to "Review #{@restaurant.name}", new_restaurant_review_path(@restaurant)
