@@ -4,4 +4,8 @@ class Restaurant < ActiveRecord::Base
       -> { extending WithUserAssociationExtension },
       dependent: :destroy
   validates :name, length: { minimum: 3 }, uniqueness: true
+
+  def average_rating
+    'N/A'
+  end
 end

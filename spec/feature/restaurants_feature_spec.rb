@@ -120,10 +120,7 @@ feature 'restaurants' do
       fill_in 'Description', with: 'Burgers'
       click_button 'Create Restaurant'
       click_link 'Sign out'
-      click_link 'Sign in'
-      fill_in 'Email', with: 'joe@bloggs.co.uk'
-      fill_in 'Password', with: 'password123'
-      click_button 'Log in'
+      sign_in_2
       expect(page).not_to have_link 'Edit Whimpy'
       expect(page).not_to have_link 'Edit Pizza Express'
     end
